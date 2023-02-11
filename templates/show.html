@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ pet.name }}</h1>
+
+{% if pet.photo_url %}
+<img class="img-fluid" src="{{ pet.photo_url }}">
+{% endif %}
+
+<div>
+    <p><strong>Species:</strong> {{ pet.species }}</p>
+</div>
+{% if pet.age %}
+<div>
+    <p><strong>Age:</strong> {{ pet.age }}</p>
+</div>
+{% endif %}
+<div>
+    <p><strong>Notes:</strong> {{ pet.notes }}</p>
+</div>
+
+<div>
+    <h1>Update Pet Information</h1>
+
+    <form class='form-group' method="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form
+        if field.widget.input_type != 'hidden' %}
+
+
+        <p>
+            {{ field.label }}
+            {{ field(class="form-control") }}
+
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+        </p>
+
+
+
+        {% endfor %}
+
+        <button class="btn btn-sm btn-secondary" type="submit">Update</button>
+    </form>
+</div>
+
+{% endblock %}
